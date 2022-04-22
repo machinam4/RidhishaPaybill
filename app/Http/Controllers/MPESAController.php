@@ -102,7 +102,7 @@ class MPESAController extends Controller
     public function generateAccessToken($consumer_key, $consumer_secret)
     {
         // *** Authorization Request in PHP ***|
-        $mpesaUrl = env('MPESA_ENV') == 0 ? 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials' : 'https://api.safaricom.co.ke/oauth/v2/generate?grant_type=client_credentials';
+        $mpesaUrl = env('MPESA_ENV') == 0 ? 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials' : 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
         $ch = curl_init($mpesaUrl);
         curl_setopt_array(
             $ch,
