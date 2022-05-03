@@ -17,7 +17,7 @@
 @endsection
 @section('contents')
     <div class="page-heading">
-        <h3>Ridhisha Jamii Statistics</h3>
+        <h3>{{ Auth::user()->name }} Statistics</h3>
     </div>
     <div class="page-content">
         <section class="row">
@@ -98,7 +98,7 @@
         </section>
     </div>
     <div class="page-heading">
-        <h3>Monthly Totals</h3>
+        <h3>Daily Totals</h3>
     </div>
     <!-- Basic Tables start -->
     <section class="section">
