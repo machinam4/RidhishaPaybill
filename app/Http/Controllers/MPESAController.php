@@ -143,6 +143,7 @@ class MPESAController extends Controller
         Log::info($body);
         $mpesaUrl = env('MPESA_ENV') == 0 ? 'https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl' : 'https://api.safaricom.co.ke/mpesa/c2b/v2/registerurl';
         $response = json_decode($this->sendRequest($mpesaUrl, $body, $data['key'], $data['secret']));
+        Log::info($response);
         return $response;
     }
 }

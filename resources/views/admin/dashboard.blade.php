@@ -1,6 +1,7 @@
 @extends('layouts.base')
 @section('page_name', 'Dashboard')
 @section('pageCss')
+    <link rel="stylesheet" href="{{ asset('assets/vendors/choices.js/choices.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendors/jquery-datatables/jquery.dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/vendors/perfect-scrollbar/perfect-scrollbar.css') }}">
     <style>
@@ -11,7 +12,6 @@
         .fontawesome-icons .the-icon svg {
             font-size: 24px;
         }
-
     </style>
 
 @endsection
@@ -93,6 +93,22 @@
                             </div>
                         </div>
                     </div> --}}
+                    @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Developer')
+                        <div class="col-6 col-lg-3 col-md-6">
+                            <div class="card p-3">
+                                <h6>Select Radio</h6>
+                                <div class="form-group">
+                                    <select class="choices form-select" id="radioSelect">
+                                        <option value="all">all</option>
+                                        @foreach ($radios as $radio)
+                                            <option value="{{ $radio->name }}">{{ $radio->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </section>
@@ -134,6 +150,8 @@
     <!-- Basic Tables end -->
 @endsection
 @section('pageJs')
+    <script src="{{ asset('assets/vendors/choices.js/choices.min.js') }}"></script>
+    <script src="{{ asset('assets/js/pages/form-element-select.js') }}"></script>
     <script src="{{ asset('assets/vendors/apexcharts/apexcharts.js') }}"></script>
     <script src="{{ asset('assets/js/pages/dashboard.js') }}"></script>
     <script src="{{ asset('assets/vendors/jquery-datatables/jquery.dataTables.min.js') }}"></script>
@@ -145,5 +163,12 @@
                 [0, "desc"]
             ]
         })
+        $('#radioSelect').on('change', function() {
+            if (this.value === 'all') {
+                window.location.assign('/');
+            } else {
+                window.location.assign('/radios/' + this.value);
+            }
+        });
     </script>
 @endsection

@@ -19,6 +19,7 @@ use App\Http\Controllers\MPESAController;
 //     return view('admin.dashboard');
 // });
 Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+Route::get('/radios/{radio}', [AdminController::class, 'getRadio'])->name('getradio'); //get single radio admin data
 Route::get('/players', [AdminController::class, 'players'])->name('players');
 Route::get('/sms', [AdminController::class, 'sms'])->name('sms');
 Route::get('/mpesa', [AdminController::class, 'mpesa'])->name('mpesa');
