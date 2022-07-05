@@ -12,7 +12,6 @@
         .fontawesome-icons .the-icon svg {
             font-size: 24px;
         }
-
     </style>
 @endsection
 @section('contents')
@@ -42,21 +41,21 @@
                                 <div class="form-group">
                                     <label for="radio-vertical">Radio Station*</label>
                                     <input type="text" id="radio-vertical" class="form-control" name="name"
-                                        placeholder="Radio Station*">
+                                        placeholder="Radio Station*" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="payblii-vertical">Mpesa Paybill/Till No*</label>
-                                    <input type="text" id="payblii-vertical" class="form-control" name="shortcode"
-                                        placeholder="Mpesa Paybill/Till No*">
+                                    <label for="payblii-vertical">Mpesa Paybill No*</label>
+                                    <input type="text" id="payblii-vertical" class="form-control" name="paybill"
+                                        placeholder="Mpesa Paybill No*" required>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="store-vertical">Mpesa Store No.*</label>
-                                    <input type="text" id="store-vertical" class="form-control" name="store"
-                                        placeholder="Mpesa Store No.*">
+                                    <label for="store-vertical">Radio Account No/Name.*</label>
+                                    <input type="text" id="store-vertical" class="form-control" name="account_no"
+                                        placeholder="Radio Account No/Name.*" required>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +80,7 @@
         <div class="card">
             <div class="card-body">
                 {{-- <livewire:pesaTable /> --}}
-                @livewire('radio-table', ['radios'=>$radios])
+                @livewire('radio-table', ['radios' => $radios])
                 {{-- @livewire('mpesaTable', ['mpesas' => $mpesas]) --}}
             </div>
         </div>

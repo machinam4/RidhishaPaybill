@@ -103,8 +103,7 @@
                                 <h6>Select Radio</h6>
                                 <div class="form-group">
                                     <select class="choices form-select" id="radioSelect">
-                                        <option value="all">all</option>
-                                        <option value="alxcxcl">alxcxl</option>
+                                        <option value="all">All</option>
                                         @foreach ($radios as $radio)
                                             <option value="{{ $radio->name }}">{{ $radio->name }}</option>
                                         @endforeach
