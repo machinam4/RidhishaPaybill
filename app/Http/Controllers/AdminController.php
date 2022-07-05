@@ -51,8 +51,8 @@ class AdminController extends Controller
             $players = Players::select(
                 DB::raw("(sum(TransAmount)) as TransAmount"),
                 DB::raw("(DATE_FORMAT(TransTime, '%d-%M-%Y')) as TransTime")
-            )->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where('BillRefNumber', $shortcode)->get();
-            $totalToday = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', $shortcode)->sum('TransAmount');
+            )->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where('BillRefNumber', 'LIKE', '%' . $shortcode . '%')->get();
+            $totalToday = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', 'LIKE', '%' . $shortcode . '%')->sum('TransAmount');
             $radios = Radio::all();
             // $totalAmount = Players::where('BillRefNumber', $shortcode)->sum('TransAmount');
             return view('admin.dashboard', ['players' => $players, 'totalToday' => $totalToday, 'radios' => $radios]);
@@ -66,8 +66,8 @@ class AdminController extends Controller
         $players = Players::select(
             DB::raw("(sum(TransAmount)) as TransAmount"),
             DB::raw("(DATE_FORMAT(TransTime, '%d-%M-%Y')) as TransTime")
-        )->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where('BillRefNumber', $shortcode)->get();
-        $totalToday = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', $shortcode)->sum('TransAmount');
+        )->groupBy(DB::raw("DATE_FORMAT(TransTime, '%d-%M-%Y')"))->where('BillRefNumber', 'LIKE', '%' . $shortcode . '%')->get();
+        $totalToday = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', 'LIKE', '%' . $shortcode . '%')->sum('TransAmount');
         $radios = Radio::all();
         // $totalAmount = Players::where('BillRefNumber', $shortcode)->sum('TransAmount');
         return view('admin.dashboard', ['players' => $players, 'totalToday' => $totalToday, 'radios' => $radios, 'radio' => $radio]);
@@ -91,8 +91,8 @@ class AdminController extends Controller
             $radio = Auth::user()->role;
             $shortcode = Radio::where('name', $radio)->first();
             $shortcode = $shortcode['shortcode'];
-            $players = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', $shortcode)->get()->count();
-            $totalAmount = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', $shortcode)->sum('TransAmount');
+            $players = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', 'LIKE', '%' . $shortcode . '%')->get()->count();
+            $totalAmount = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', 'LIKE', '%' . $shortcode . '%')->sum('TransAmount');
             return view('admin.players', ['players' => $players, 'totalAmount' => $totalAmount]);
         }
     }
