@@ -17,7 +17,11 @@
 @endsection
 @section('contents')
     <div class="page-heading">
-        <h3>{{ Auth::user()->name }} Statistics</h3>
+
+        <h3>{{ Auth::user()->name }}</h3>
+        @isset($radio)
+            <h3>{{ $radio }} Statistics</h3>
+        @endisset
     </div>
     <div class="page-content">
         <section class="row">

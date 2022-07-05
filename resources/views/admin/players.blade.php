@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- @if (Auth::user()->role != 'Admin' || Auth::user()->role != 'Developer')
+                @isset($totalAmount)
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
                             <div class="card-body px-3 py-4-5">
@@ -59,8 +59,8 @@
                             </div>
                         </div>
                     </div>
-                @endif --}}
-                {{-- <div class="col-6 col-lg-3 col-md-6">
+                    @endif
+                    {{-- <div class="col-6 col-lg-3 col-md-6">
                 <div class="card">
                     <div class="card-body px-3 py-4-5">
                         <div class="row">
@@ -94,22 +94,22 @@
                     </div>
                 </div>
             </div> --}}
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Basic Tables start -->
-    <section class="section">
-        <div class="card">
-            <div class="card-body">
-                {{-- live wire table --}}
-                @livewire('players-table')
+        <!-- Basic Tables start -->
+        <section class="section">
+            <div class="card">
+                <div class="card-body">
+                    {{-- live wire table --}}
+                    @livewire('players-table')
+                </div>
             </div>
-        </div>
 
-    </section>
-    <!-- Basic Tables end -->
-@endsection
+        </section>
+        <!-- Basic Tables end -->
+    @endsection
 
 @section('pageJs')
     <script src="{{ asset('assets/vendors/jquery-datatables/jquery.dataTables.min.js') }}"></script>

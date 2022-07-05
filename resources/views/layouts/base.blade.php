@@ -76,6 +76,8 @@
                                     <span>Radios</span>
                                 </a>
                             </li>
+                        @endif
+                        @if (Auth::user()->role == 'Developer')
                             <li class="sidebar-item  ">
                                 <a href="{{ Route('mpesa') }}" class='sidebar-link'>
                                     <i class="bi bi-wallet-fill"></i>
