@@ -104,6 +104,7 @@
                                 <div class="form-group">
                                     <select class="choices form-select" id="radioSelect">
                                         <option value="all">all</option>
+                                        <option value="alxcxcl">alxcxl</option>
                                         @foreach ($radios as $radio)
                                             <option value="{{ $radio->name }}">{{ $radio->name }}</option>
                                         @endforeach
@@ -168,7 +169,7 @@
             ]
         })
         $('#radioSelect').on('change', function() {
-            if (this.value === 'all') {
+            if (this.value == 'all') {
                 window.location.assign('/');
             } else {
                 window.location.assign('/radios/' + this.value);
