@@ -8,7 +8,7 @@
                 <th>Phone</th>
                 <th>Amount</th>
                 <th>Trans Code</th>
-                <th>Mpesa Bill No</th>
+                <th>Radio Name</th>
                 {{-- <th>Status</th> --}}
             </tr>
         </thead>
@@ -20,7 +20,7 @@
                     <td>{{ $player->MSISDN }}</td>
                     <td>{{ $player->TransAmount }}</td>
                     <td>{{ $player->TransID }}</td>
-                    <td>{{ $player->BusinessShortCode }}</td>
+                    <td>{{ $player->BillRefNumber }}</td>
                     {{-- <td>
                     <span class="badge bg-success">Active</span>
                 </td> --}}
