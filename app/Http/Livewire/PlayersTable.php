@@ -15,25 +15,24 @@ class PlayersTable extends Component
     {
 
         return ['getPlayers' => 'render'];
-
     }
-    public function render() 
+    public function render()
     {
         //if user is admin return all data
-        if (Auth::user()->role == 'Jamii') {
-            $players = Players::whereDate('TransTime', date('Y-m-d'))->where('BusinessShortCode', '7296354')->orderBy('TransTime', 'DESC')->limit(20)->get();
-            return view('livewire.players-table', ['players' => $players]);
-        }
+        // if (Auth::user()->role == 'Jamii') {
+        //     $players = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', '7296354')->orderBy('TransTime', 'DESC')->limit(20)->get();
+        //     return view('livewire.players-table', ['players' => $players]);
+        // }
         //if user is admin return all data
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Developer') {
-            $players = Players::where('BusinessShortCode', '!=', '7296354')->orderBy('TransTime', 'DESC')->limit(20)->get();
+            $players = Players::where('BillRefNumber', '!=', '7296354')->orderBy('TransTime', 'DESC')->limit(20)->get();
             return view('livewire.players-table', ['players' => $players]);
-        // if user is radio station, return specific data
+            // if user is radio station, return specific data
         } else {
             $radio = Auth::user()->role;
-            $shortcode=Radio::where('name', $radio)->first();
-            $shortcode=$shortcode['shortcode'];
-            $players = Players::whereDate('TransTime', date('Y-m-d'))->where('BusinessShortCode', $shortcode)->orderBy('TransTime', 'DESC')->limit(20)->get();
+            $shortcode = Radio::where('name', $radio)->first();
+            $shortcode = $shortcode['shortcode'];
+            $players = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', 'LIKE', '%' . $shortcode . '%')->orderBy('TransTime', 'DESC')->limit(20)->get();
             return view('livewire.players-table', ['players' => $players]);
         }
     }
