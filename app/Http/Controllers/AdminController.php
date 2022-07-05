@@ -146,7 +146,7 @@ class AdminController extends Controller
         $data = [
             'name' => $request->input('name'),
             'shortcode' => strtoupper($request->input('account_no')),
-            'store' => $request->input('paybill'),
+            'store' => $request->input('name') . '@' . $request->input('paybill'),
             'created_by' => Auth::user()->name,
         ];
         try {
