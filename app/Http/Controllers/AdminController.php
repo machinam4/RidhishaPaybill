@@ -70,7 +70,7 @@ class AdminController extends Controller
         $totalToday = Players::whereDate('TransTime', date('Y-m-d'))->where('BusinessShortCode', $shortcode)->sum('TransAmount');
         $radios = Radio::all();
         // $totalAmount = Players::where('BusinessShortCode', $shortcode)->sum('TransAmount');
-        return view('admin.dashboard', ['players' => $players, 'totalToday' => $totalToday, 'radios' => $radios, $radio]);
+        return view('admin.dashboard', ['players' => $players, 'totalToday' => $totalToday, 'radios' => $radios, 'radio' => $radio]);
     }
 
     public function players()
