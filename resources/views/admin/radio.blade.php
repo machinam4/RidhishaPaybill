@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label for="store-vertical">Radio Account No/Name.*</label>
                                     <input type="text" id="store-vertical" class="form-control" name="account_no"
-                                        placeholder="Radio Account No/Name.*" required>
+                                        placeholder="Radio Account No/Name.*" style="text-transform:uppercase" required>
                                 </div>
                             </div>
                         </div>
