@@ -19,8 +19,8 @@
     <div class="page-heading">
 
         <h6>{{ Auth::user()->name }}</h6>
-        @isset($radio)
-            <h3>{{ $radio }} Statistics</h3>
+        @isset($radio_select)
+            <h3>{{ $radio_select }} Statistics</h3>
         @endisset
     </div>
     <div class="page-content">
@@ -103,9 +103,16 @@
                                 <h6>Select Radio</h6>
                                 <div class="form-group">
                                     <select class="choices form-select" id="radioSelect">
-                                        <option value="all">All</option>
+                                        <option value="all">All </option>
                                         @foreach ($radios as $radio)
-                                            <option value="{{ $radio->name }}">{{ $radio->name }}</option>
+                                            @if (isset($radio_select))
+                                                <option value="{{ $radio->name }}"
+                                                    {{ $radio->name == $radio_select ? 'selected' : '' }}>
+                                                    {{ $radio->name }}
+                                                </option>
+                                            @else
+                                                <option value="{{ $radio->name }}">{{ $radio->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </div>

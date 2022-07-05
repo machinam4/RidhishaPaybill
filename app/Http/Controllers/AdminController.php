@@ -59,9 +59,9 @@ class AdminController extends Controller
         }
     }
 
-    public function getRadio($radio)
+    public function getRadio($radio_select)
     {
-        $shortcode = Radio::where('name', $radio)->first();
+        $shortcode = Radio::where('name', $radio_select)->first();
         $shortcode = $shortcode['shortcode'];
         $players = Players::select(
             DB::raw("(sum(TransAmount)) as TransAmount"),
@@ -70,7 +70,7 @@ class AdminController extends Controller
         $totalToday = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', 'LIKE', '%' . $shortcode . '%')->sum('TransAmount');
         $radios = Radio::all();
         // $totalAmount = Players::where('BillRefNumber', $shortcode)->sum('TransAmount');
-        return view('admin.dashboard', ['players' => $players, 'totalToday' => $totalToday, 'radios' => $radios, 'radio' => $radio]);
+        return view('admin.dashboard', ['players' => $players, 'totalToday' => $totalToday, 'radios' => $radios, 'radio_select' => $radio_select]);
     }
 
     public function players()
