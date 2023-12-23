@@ -17,14 +17,17 @@ class MPESAResponseController extends Controller
         // $data = json_decode($request->getContent());
         // Log::info('confirmation hit');
 
-        $request->BillRefNumber = strtoupper($request->BillRefNumber);
-        if ($request->TransactionType == "Customer Merchant Payment") {
-            $request->BillRefNumber = $request->BusinessShortCode;
-            Log::info($request->BillRefNumber, $request->BusinessShortCode);
+
+        $data = $request->all();
+        $data["BillRefNumber"] = strtoupper($data["BillRefNumber"]);
+        if ($data["TransactionType"] == "Customer Merchant Payment") {
+            $data["BillRefNumber"] = $data["BusinessShortCode"];
+            // Log::info(["data", $data["BillRefNumber"], $data["BusinessShortCode"]]);
         }
-        // Log::info($request->BillRefNumber, $request->TransactionType);
-        Players::Create($request->all());
-        Log::info($request->all());
+        // Log::info([$data["BillRefNumber"], $data["TransactionType"]]);
+
+        Players::Create($data);
+        // Log::info($data);
         return "success";
     }
 
