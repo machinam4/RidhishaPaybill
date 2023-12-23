@@ -16,11 +16,13 @@ class MPESAResponseController extends Controller
     {
         // $data = json_decode($request->getContent());
         // Log::info('confirmation hit');
-        Log::info($request->BillRefNumber);
+
         $request->BillRefNumber = strtoupper($request->BillRefNumber);
         if ($request->TransactionType == "Customer Merchant Payment") {
             $request->BillRefNumber = $request->BusinessShortCode;
+            Log::info($request->BillRefNumber, $request->BusinessShortCode);
         }
+        // Log::info($request->BillRefNumber, $request->TransactionType);
         Players::Create($request->all());
         Log::info($request->all());
         return "success";
