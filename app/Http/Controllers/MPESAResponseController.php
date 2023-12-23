@@ -18,13 +18,14 @@ class MPESAResponseController extends Controller
         // Log::info('confirmation hit');
         Log::info($request->BillRefNumber);
         $request->BillRefNumber = strtoupper($request->BillRefNumber);
-        if ($request->TransactionType === "Customer Merchant Payment") {
+        if ($request->TransactionType == "Customer Merchant Payment") {
             $request->BillRefNumber = $request->BusinessShortCode;
         }
         Players::Create($request->all());
         Log::info($request->all());
         return "success";
     }
+
     public function validation(Request $request)
     {
         // Log::info('validation hit');
