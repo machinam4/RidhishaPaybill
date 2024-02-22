@@ -29,11 +29,14 @@ class PlayersTable extends Component
             return view('livewire.players-table', ['players' => $players]);
             // if user is radio station, return specific data
         } else {
-            $radio = Auth::user()->role;
-            $shortcode = Radio::where('name', $radio)->first();
-            $shortcode = $shortcode['shortcode'];
-            $players = Players::whereDate('TransTime', date('Y-m-d'))->where('BillRefNumber', 'LIKE', '%' . $shortcode . '%')->orderBy('TransTime', 'DESC')->limit(20)->get();
+            $role = Auth::user()->role;
+            $radio = Radio::where('name', $role)->first();
+            $store = explode('@', $radio['store']);
+            $shortcode = end($store);
+            $RefNumber = $radio['shortcode'];
+            $players = Players::whereDate('TransTime', date('Y-m-d'))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->orderBy('TransTime', 'DESC')->limit(20)->get();
             return view('livewire.players-table', ['players' => $players]);
         }
     }
 }
+
