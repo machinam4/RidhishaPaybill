@@ -80,9 +80,10 @@ class AdminController extends Controller
             $store = explode('@', $radio['store']);
             $shortcode = end($store);
             $RefNumber = $radio['shortcode'];
-            $players = Players::whereDate('TransTime', date('Y-m-d'))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->get()->count();
+            $players = Players::whereDate('TransTime', date('Y-m-d'))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->get();
+            $totalPlayers = $players->count();
             $totalAmount = $players->sum('TransAmount');
-            return view('admin.players', ['players' => $players, 'totalAmount' => $totalAmount]);
+            return view('admin.players', ['players' => $totalPlayers, 'totalAmount' => $totalAmount]);
         }
     }
 
