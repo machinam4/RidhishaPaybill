@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Total Players</h6>
-                                    <h6 class="font-extrabold mb-0" id="show_sms_name">{{ $players }}</h6>
+                                    <h6 class="font-extrabold mb-0" id="show_sms_name">{{ $totalplayers }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,37 @@
             <div class="card">
                 <div class="card-body">
                     {{-- live wire table --}}
-                    @livewire('players-table')
+                    {{-- @livewire('players-table') --}}
+                    <table class="table" id="players_table">
+                        <thead>
+                            <tr>
+                                <th style="display: none;">ID</th>
+                                <th>Time</th>
+                                <th>Names</th>
+                                <th>Phone</th>
+                                <th>Amount</th>
+                                <th>Trans Code</th>
+                                <th>Radio Name</th>
+                                {{-- <th>Status</th> --}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($players as $player)
+                                <tr>
+                                    <td style="display: none;">{{ $player->id }}</td>
+                                    <td>{{ $player->TransTime }}</td>
+                                    <td>{{ $player->FirstName . ' ' . $player->LastName }}</td>
+                                    <td>{{ $player->MSISDN }}</td>
+                                    <td>{{ $player->TransAmount }}</td>
+                                    <td>{{ $player->TransID }}</td>
+                                    <td>{{ $player->BillRefNumber }}</td>
+                                    {{-- <td>
+                                    <span class="badge bg-success">Active</span>
+                                </td> --}}
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -170,12 +200,34 @@
         let jquery_datatable = $("#players_table").DataTable({
             "order": [
                 [0, "desc"]
-            ]
+            ],
+            "pageLength": 100,
         })
         var intervalId = window.setInterval(function() {
             /// call your function here
-            Livewire.emit('getPlayers')
+            // Livewire.emit('getPlayers')
             // console.log(123)
+            // Retrieve the last row's data
+            var lastRowData = jquery_datatable.row(':first').data();
+            var lastDataId = lastRowData ? lastRowData[0] : '';
+            console.log(lastRowData);
+            $.get('online/' + index, function(data) {
+                    $("#totalAmount").html(data.totalAmount)
+                    console.log(data);
+                    data.new_players.forEach(player => {
+                        jquery_datatable.row.add([
+                            player.TransTime,
+                            player.player.FirstName,
+                            player.MSISDN,
+                            player.TransAmount,
+                            player.TransID,
+                            player.BusinessShortCode,
+                            // data
+                        ]).draw().order([0, 'desc']).draw();
+                    });
+
+                })
+                .catch(error => console.error('Error fetching data:', error));
         }, 10000);
     </script>
     <script>

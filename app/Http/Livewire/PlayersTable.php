@@ -34,9 +34,12 @@ class PlayersTable extends Component
             $store = explode('@', $radio['store']);
             $shortcode = end($store);
             $RefNumber = $radio['shortcode'];
-            $players = Players::whereDate('TransTime', date('Y-m-d'))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->orderBy('TransTime', 'DESC')->limit(20)->get();
+            if ($RefNumber == 'NONE') {
+                $players = Players::whereDate('TransTime', date('Y-m-d'))->where("BusinessShortCode", $shortcode)->orderBy('TransTime', 'DESC')->limit(20)->get();
+            } else {
+                $players = Players::whereDate('TransTime', date('Y-m-d'))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->orderBy('TransTime', 'DESC')->limit(20)->get();
+            }
             return view('livewire.players-table', ['players' => $players]);
         }
     }
 }
-

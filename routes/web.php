@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', [AdminController::class, 'index'])->name('dashboard');
 Route::get('/radios/{radio}', [AdminController::class, 'getRadio'])->name('getradio'); //get single radio admin data
 Route::get('/players', [AdminController::class, 'players'])->name('players');
+Route::get('/online/{index}', [AdminController::class, 'online'])->name('online');
 Route::post('/filter', [AdminController::class, 'filter'])->name('filter');
 Route::get('/sms', [AdminController::class, 'sms'])->name('sms');
 Route::get('/mpesa', [AdminController::class, 'mpesa'])->name('mpesa');
