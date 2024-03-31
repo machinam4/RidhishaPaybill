@@ -32,7 +32,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Total Players</h6>
-                                    <h6 class="font-extrabold mb-0" id="show_sms_name">{{ $totalplayers }}</h6>
+                                    <h6 class="font-extrabold mb-0" id="totalPlayers">{{ $totalplayers }}</h6>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
 
                                     <div class="col-md-8">
                                         <h6 class="text-muted font-semibold">Total Amount</h6>
-                                        <h6 class="font-extrabold mb-0" id="show_sms_balance">
+                                        <h6 class="font-extrabold mb-0" id="totalAmount">
                                             {{ $totalAmount }}</h6>
                                     </div>
 
@@ -158,26 +158,28 @@
                     <table class="table" id="players_table">
                         <thead>
                             <tr>
-                                <th style="display: none;">ID</th>
+                                <th>ID</th>
                                 <th>Time</th>
                                 <th>Names</th>
                                 <th>Phone</th>
                                 <th>Amount</th>
                                 <th>Trans Code</th>
-                                <th>Radio Name</th>
+                                <th>Account Name</th>
+                                <th>Shortcode</th>
                                 {{-- <th>Status</th> --}}
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($players as $player)
                                 <tr>
-                                    <td style="display: none;">{{ $player->id }}</td>
+                                    <td>{{ $player->id }}</td>
                                     <td>{{ $player->TransTime }}</td>
-                                    <td>{{ $player->FirstName . ' ' . $player->LastName }}</td>
+                                    <td>{{ $player->FirstName }}</td>
                                     <td>{{ $player->MSISDN }}</td>
                                     <td>{{ $player->TransAmount }}</td>
                                     <td>{{ $player->TransID }}</td>
                                     <td>{{ $player->BillRefNumber }}</td>
+                                    <td>{{ $player->BusinessShortCode }}</td>
                                     {{-- <td>
                                     <span class="badge bg-success">Active</span>
                                 </td> --}}
@@ -202,6 +204,11 @@
                 [0, "desc"]
             ],
             "pageLength": 100,
+            "columnDefs": [{
+                "targets": 0, // Targeting the first column (ID column)
+                "visible": false, // Making the ID column invisible
+                "searchable": false // Making the ID column unsearchable
+            }]
         })
         var intervalId = window.setInterval(function() {
             /// call your function here
@@ -210,17 +217,20 @@
             // Retrieve the last row's data
             var lastRowData = jquery_datatable.row(':first').data();
             var lastDataId = lastRowData ? lastRowData[0] : '';
-            console.log(lastRowData);
-            $.get('online/' + index, function(data) {
+            // console.log(lastDataId);
+            $.get('online/' + lastDataId, function(data) {
                     $("#totalAmount").html(data.totalAmount)
+                    $("#totalPlayers").html(data.totalplayers)
                     console.log(data);
                     data.new_players.forEach(player => {
                         jquery_datatable.row.add([
+                            player.id,
                             player.TransTime,
-                            player.player.FirstName,
+                            player.FirstName,
                             player.MSISDN,
                             player.TransAmount,
                             player.TransID,
+                            player.BillRefNumber,
                             player.BusinessShortCode,
                             // data
                         ]).draw().order([0, 'desc']).draw();
