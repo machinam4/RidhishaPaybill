@@ -16,8 +16,10 @@ class CreateRadiosTable extends Migration
         Schema::create('radios', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('shortcode')->unique(); //This is the account number for the till
-            $table->string('store')->unique();
+            $table->string('shortcode'); //This is the account number for the paybill or None for till
+            $table->string('store')->unique(); //this is paybill number or till store number
+            $table->string('mpesa_shortcode')->nullable(); //this identifies the till number icase of till
+            $table->string('mpesa_type')->nullable(); //identifies if is paybill ot till (["paybill", "till"])
             $table->string('created_by');
             $table->timestamps();
         });
