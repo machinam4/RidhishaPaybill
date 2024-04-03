@@ -16,7 +16,7 @@
 @endsection
 @section('contents')
     <div class="page-heading">
-        <h3>Filtered Records</h3>
+        <h3>{{ $radio }} Records</h3>
         <a href="{{ Route('players') }}" class="btn btn-primary block mb-5">
             BACK
         </a>

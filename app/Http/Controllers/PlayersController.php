@@ -91,7 +91,7 @@ class PlayersController extends Controller
         // dd(['players' => $players, 'totalPlayers' => $totalPlayers, 'totalAmount' => $totalAmount]);
         return view('admin.filters', [
             'players' => $players, 'totalPlayers' => $totalPlayers, 'totalAmount' => $totalAmount, "fromDate" => $from_date,
-            "toDate" => $to_date
+            "toDate" => $to_date, 'radio' => $role
         ]);
     }
 
