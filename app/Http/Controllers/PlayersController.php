@@ -20,10 +20,10 @@ class PlayersController extends Controller
     }
     public function players()
     {
-        //if user is admin return all data
+        //if user is admin return all data 
+
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Developer') {
             $players = Players::whereDate('TransTime', date('Y-m-d'))->get();
-            $radios = Radio::all();
         } else {
             $role = Auth::user()->role;
             $radio = Radio::where('name', $role)->first();
@@ -36,9 +36,10 @@ class PlayersController extends Controller
                 $players = Players::whereDate('TransTime', date('Y-m-d'))->where("BusinessShortCode", $shortcode)->where('BillRefNumber', 'LIKE', '%' . $RefNumber . '%')->get();
             }
         }
+        $radios = Radio::all();
         $totalPlayers = $players->count();
         $totalAmount = $players->sum('TransAmount');
-        return view('admin.players', ['players' => $players, 'totalplayers' => $totalPlayers, 'totalAmount' => $totalAmount])->with('radios', $radios);
+        return view('admin.players', ['players' => $players, 'totalplayers' => $totalPlayers, 'totalAmount' => $totalAmount, 'radios' => $radios]);
     }
 
     public function online($index)
