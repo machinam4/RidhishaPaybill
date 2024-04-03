@@ -23,6 +23,7 @@ class PlayersController extends Controller
         //if user is admin return all data
         if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Developer') {
             $players = Players::whereDate('TransTime', date('Y-m-d'))->get();
+            $radios = Radio::all();
         } else {
             $role = Auth::user()->role;
             $radio = Radio::where('name', $role)->first();
@@ -37,7 +38,7 @@ class PlayersController extends Controller
         }
         $totalPlayers = $players->count();
         $totalAmount = $players->sum('TransAmount');
-        return view('admin.players', ['players' => $players, 'totalplayers' => $totalPlayers, 'totalAmount' => $totalAmount]);
+        return view('admin.players', ['players' => $players, 'totalplayers' => $totalPlayers, 'totalAmount' => $totalAmount])->with('radios', $radios);
     }
 
     public function online($index)
@@ -65,10 +66,14 @@ class PlayersController extends Controller
     }
     public function filter(Request $request)
     {
+
         $from_date = Carbon::parse($request->from_date);
         $to_date = Carbon::parse($request->to_date);
         // dd($from_date);
         $role = Auth::user()->role;
+        if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Developer') {
+            $role = $request->radio;
+        }
         $radio = Radio::where('name', $role)->first();
         $store = explode('@', $radio['store']);
         $shortcode = end($store);

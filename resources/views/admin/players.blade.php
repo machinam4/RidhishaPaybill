@@ -117,6 +117,19 @@
                         @csrf
                         <div class="modal-body">
                             <div class="row">
+                                @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Developer')
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="radio-vertical">Radio</label>
+                                            <select class="form-select" id="basicSelect" name="radio">
+                                                @foreach ($radios as $radio)
+                                                    <option value="{{ $radio->name }}">{{ $radio->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                @endif
+
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="radio-vertical">From Date*</label>
