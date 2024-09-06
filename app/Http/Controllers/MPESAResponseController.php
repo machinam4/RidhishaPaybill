@@ -44,7 +44,7 @@ class MPESAResponseController extends Controller
     public function updatePlayer(Request $request)
     {
         // $data = json_decode($request->getContent());
-        // Log::info('confirmation hit');
+        Log::info('update hit');
         $data = $request->all();
         
         try {
@@ -53,7 +53,7 @@ class MPESAResponseController extends Controller
             'FirstName' => $data->FirstName
         ]);
         } catch (\Throwable $th) {
-            return  $th;
+            return  "failed";
         }
         
         return "success";
