@@ -40,4 +40,22 @@ class MPESAResponseController extends Controller
             "ResultDesc" => "Accept Service"
         ];
     }
+
+    public function updatePlayer(Request $request)
+    {
+        // $data = json_decode($request->getContent());
+        // Log::info('confirmation hit');
+        $data = $request->all();
+        
+        try {
+            Players::where("TransID", $data->TransID)->update([
+            'MSISDN' => $data->MSISDN,
+            'FirstName' => $data->FirstName
+        ]);
+        } catch (\Throwable $th) {
+            return  $th;
+        }
+        
+        return "success";
+    }
 }
