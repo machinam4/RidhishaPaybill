@@ -46,6 +46,7 @@ class MPESAResponseController extends Controller
         // $data = json_decode($request->getContent());
         Log::info('update hit');
         $data = $request->all();
+        Log::info($data);
         
         try {
             Players::where("TransID", $data->TransID)->update([
@@ -53,6 +54,7 @@ class MPESAResponseController extends Controller
             'FirstName' => $data->FirstName
         ]);
         } catch (\Throwable $th) {
+            Log::info($th);
             return  "failed";
         }
         
