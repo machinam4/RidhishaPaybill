@@ -44,9 +44,9 @@ class MPESAResponseController extends Controller
     public function updatePlayer(Request $request)
     {
         // $data = json_decode($request->getContent());
-        Log::info('update hit');
+        // Log::info('update hit');
         $data = $request->all();
-        Log::info($data);
+        // Log::info($data);
         
         try {
             Players::where("TransID", $data["TransID"])->update([
